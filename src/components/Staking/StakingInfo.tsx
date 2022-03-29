@@ -26,6 +26,7 @@ export const StakingInfos = ({
             {claimableCoins.toFixed(4)} {stakingGlobals.tokenName} earned
           </h4>
         </div>
+        <h2></h2>
         <Button onClick={claim}>Claim</Button>
       </div>
     </StakingInfosStyled>

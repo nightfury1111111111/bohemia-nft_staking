@@ -9,34 +9,32 @@ const Staking: FunctionComponent = () => {
   const { connected } = useWallet();
 
   return (
-    <StakingStyled>
-      {connected ? (
-        <StakingContent />
-      ) : (
-        <div className="flex">
-          <div className="error">You need to connect your Wallet</div>
-          <WalletMultiButton className="wallet" />
-        </div>
-      )}
-    </StakingStyled>
+    <div className="max-w-screen-xl mx-auto px-3 py-16">
+      <StakingStyled>
+        {connected ? (
+          <StakingContent />
+        ) : (
+          <div className="w-full text-center pt-10">         
+            <WalletMultiButton className="text-4xl" />       
+          </div>
+        )}
+      </StakingStyled>
+    </div>
   );
 };
 
 const StakingStyled = styled.div`
-  color: black;
-  .list-items {
-    margin-top: 30px;
-    display: flex;
+  .wallet-adapter-button {
+    background-color: #facc13;
+    color: #043251;
     justify-content: center;
-    flex-direction: column;
-    ${medias.min768} {
-      flex-direction: row;
-    }
-    height: 100%;
-    .sep {
-      width: 2px;
-      background-color: white;
-    }
+    text-align: center;
+    margin: 0 auto;
+    width: 300px;
+  }
+  .wallet-adapter-button:hover {
+    background-color: #043251;
+    color: #facc13;
   }
   .content-button {
     display: flex;

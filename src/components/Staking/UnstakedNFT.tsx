@@ -5,7 +5,7 @@ import { PublicKey } from "@solana/web3.js";
 import { getEarningsPerDay } from "../../lib/staking/util";
 import NFT from "./NFT";
 
-const ContentNFT = ({
+const UnstakedNFT = ({
   title,
   NFTs,
   callback,
@@ -23,6 +23,7 @@ const ContentNFT = ({
   return (
     <div className="text-center">
       <h2 className="text-white text-4xl">{title}</h2>
+     
       <div className="w-full flex">
         {NFTs.map(
           (e: {
@@ -36,15 +37,20 @@ const ContentNFT = ({
             const earningsPerDay = getEarningsPerDay(e.farmer, e.mint);
 
             return (
-              <NFT
-                nft={e}
-                callback={callback}
-                isStaking={isStaking}
-                earningsPerDay={earningsPerDay}
-                loading={loading}
-                getStakingInfo={getStakingInfo}
-                farmer={e.farmer}
-              />
+                <div>
+                     <div className="relative">
+                        <img src="./unstaked-frame.png" alt="unstaked bohemian" />
+                    </div>
+                     <NFT
+                        nft={e}
+                        callback={callback}
+                        isStaking={isStaking}
+                        earningsPerDay={earningsPerDay}
+                        loading={loading}
+                        getStakingInfo={getStakingInfo}
+                        farmer={e.farmer}
+                    />
+                </div>             
             );
           }
         )}
@@ -53,25 +59,4 @@ const ContentNFT = ({
   );
 };
 
-export default ContentNFT;
-
-const ContentNFTStyled = styled.div<{ isStaking: boolean }>`
-  width: 100%;
-  height: fit-content;
-  padding-bottom: 20px;
-
-  ${TitleStyled} {
-    margin: 0 auto;
-    color: white;
-  }
-  ${medias.min768} {
-    width: 47%;
-  }
-  .list {
-    width: 90%;
-    margin: 40px auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-`;
+export default UnstakedNFT;
