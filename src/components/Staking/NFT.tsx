@@ -48,11 +48,11 @@ const NFT = ({
   });
 
   return (
-    <NFTStyled>
-      <img className="pict" src={nft.image} alt="" />
-      <span>{nft.name}</span>
+    <div className="w-1/3"> 
       {isStaking ? (
         <div className="display-button">
+          <img className="pict" src={nft.image} alt="" />
+          <span>{nft.name}</span>
           <span>Est. claimable coins: {claimableCoins.toFixed(4)}</span>
           <span>Reward rate: {earningsPerDay}</span>
           <Button
@@ -65,49 +65,26 @@ const NFT = ({
           </Button>
         </div>
       ) : (
-        <Button
-          disabled={loading}
-          onClick={() =>
-            callback(stakingGlobals.farmId, nft.mint, nft.pubkey, nft.creator)
-          }
-        >
-          Stake
-        </Button>
+        <div className="w-full">
+           <div className="relative">    
+              <img src="./unstaked-frame.png" alt="unstaked bohemian" />           
+              <img className="absolute top-[17px] left-[88px] w-[220px]" src={nft.image} alt="" /> 
+              <h2 className="absolute text-2xl left-[145px] bottom-[150px]">{nft.name}</h2>
+              <div className="absolute bottom-[150px] right-[50px]">
+                <Button
+                  disabled={loading}
+                  onClick={() =>
+                    callback(stakingGlobals.farmId, nft.mint, nft.pubkey, nft.creator)
+                  }
+                >
+                Stake
+                </Button>  
+              </div>            
+            </div>        
+        </div>
       )}
-    </NFTStyled>
+    </div>
   );
 };
 
 export default NFT;
-
-const NFTStyled = styled.div`
-  border: 3px solid black;
-  border-radius: 15px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: calc(100% / 2 - 20px);
-  margin: 10px;
-  ${medias.min1220} {
-    width: calc(100% / 3 - 20px);
-  }
-
-  .display-button {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-  .pict {
-    width: 60px;
-    ${medias.min768} {
-      width: 120px;
-    }
-  }
-  span {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-`;

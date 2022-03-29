@@ -20,6 +20,7 @@ import { stakeNft } from "../../lib/staking/stakeNft";
 import { unstakeNft } from "../../lib/staking/unstakeNft";
 import { claim } from "../../lib/staking/claim";
 import ContentNFT from "./ContentNFT";
+import UnstakedNFT from "./UnstakedNFT";
 
 const StakingContent: FunctionComponent = () => {
   const { connection } = useConnection();
@@ -211,16 +212,7 @@ const StakingContent: FunctionComponent = () => {
 
       <div className="content-card">
         <div className="list-items">
-          <ContentNFT
-            loading={loadingNft}
-            title={"Unstaked"}
-            NFTs={availableNFTs.filter((x) => !x.isStaked)}
-            callback={handleStakeNFT}
-            isStaking={false}
-            getStakingInfo={getStakingInfos}
-          />
-          <div className="sep" />
-          <ContentNFT
+        <ContentNFT
             loading={loadingNft}
             title={"Staked"}
             NFTs={availableNFTs.filter((x) => x.isStaked)}
@@ -228,6 +220,15 @@ const StakingContent: FunctionComponent = () => {
             isStaking={true}
             getStakingInfo={getStakingInfos}
           />
+          <UnstakedNFT
+            loading={loadingNft}
+            title={"Unstaked"}
+            NFTs={availableNFTs.filter((x) => !x.isStaked)}
+            callback={handleStakeNFT}
+            isStaking={false}
+            getStakingInfo={getStakingInfos}
+          />         
+         
         </div>
       </div>
     </StakingContentStyled>

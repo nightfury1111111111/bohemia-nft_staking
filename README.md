@@ -45,3 +45,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 # global_staking_template
+
+
+npx tailwindcss -i ./src/index.css -o ./src/stake.css --watch

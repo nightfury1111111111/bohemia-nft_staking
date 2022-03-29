@@ -23,7 +23,6 @@ const UnstakedNFT = ({
   return (
     <div className="text-center">
       <h2 className="text-white text-4xl">{title}</h2>
-     
       <div className="w-full flex">
         {NFTs.map(
           (e: {
@@ -37,20 +36,15 @@ const UnstakedNFT = ({
             const earningsPerDay = getEarningsPerDay(e.farmer, e.mint);
 
             return (
-                <div>
-                     <div className="relative">
-                        <img src="./unstaked-frame.png" alt="unstaked bohemian" />
-                    </div>
-                     <NFT
-                        nft={e}
-                        callback={callback}
-                        isStaking={isStaking}
-                        earningsPerDay={earningsPerDay}
-                        loading={loading}
-                        getStakingInfo={getStakingInfo}
-                        farmer={e.farmer}
-                    />
-                </div>             
+              <NFT
+                nft={e}
+                callback={callback}
+                isStaking={isStaking}
+                earningsPerDay={earningsPerDay}
+                loading={loading}
+                getStakingInfo={getStakingInfo}
+                farmer={e.farmer}
+              />
             );
           }
         )}
