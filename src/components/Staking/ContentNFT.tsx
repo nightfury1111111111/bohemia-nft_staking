@@ -12,6 +12,7 @@ const ContentNFT = ({
   isStaking,
   loading,
   getStakingInfo,
+  claimableCoins,
 }: {
   title: string;
   NFTs: any[];
@@ -19,6 +20,7 @@ const ContentNFT = ({
   getStakingInfo: any;
   isStaking: boolean;
   loading: boolean;
+  claimableCoins: number;
 }) => {
   return (
     <ContentNFTStyled isStaking={isStaking}>
@@ -44,6 +46,7 @@ const ContentNFT = ({
                 loading={loading}
                 getStakingInfo={getStakingInfo}
                 farmer={e.farmer}
+                claimableCoins={claimableCoins}
               />
             );
           }

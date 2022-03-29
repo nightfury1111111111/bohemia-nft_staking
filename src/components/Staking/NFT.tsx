@@ -13,6 +13,7 @@ const NFT = ({
   getStakingInfo,
   loading,
   farmer,
+  claimableCoins,
 }: {
   nft: any;
   callback: any;
@@ -21,28 +22,13 @@ const NFT = ({
   loading: boolean;
   getStakingInfo: any;
   farmer: any;
+  claimableCoins: number;
 }) => {
-  const [claimableCoins, setClaimableCoins] = useState(() => {
-    if (nft.farmer === null || nft.farmer === undefined) return 0;
-
-    const lastUpdatedTs = moment(
-      new Date(nft.farmer.rewardA.fixedRate.lastUpdatedTs.toNumber() * 1000)
-    );
-    const now = moment();
-    const diffInSec = now.diff(lastUpdatedTs, "seconds");
-    const diffInCoins = diffInSec * (earningsPerDay / 86400);
-
-    return (
-      (nft.farmer.rewardA.accruedReward.toNumber() -
-        nft.farmer.rewardA.paidOutReward.toNumber()) /
-        Math.pow(10, 9) +
-        diffInCoins ?? 0
-    );
-  });
+  const [nftClaimableCoins, setNftClaimableCoins] = useState(claimableCoins);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setClaimableCoins((prev) => prev + earningsPerDay / 86400);
+      setNftClaimableCoins((prev) => prev + earningsPerDay / 86400);
     }, 1000);
     return () => clearInterval(interval);
   });
@@ -53,7 +39,7 @@ const NFT = ({
       <span>{nft.name}</span>
       {isStaking ? (
         <div className="display-button">
-          <span>Est. claimable coins: {claimableCoins.toFixed(4)}</span>
+          <span>Est. claimable coins: {nftClaimableCoins.toFixed(4)}</span>
           <span>Reward rate: {earningsPerDay}</span>
           <Button
             disabled={loading}

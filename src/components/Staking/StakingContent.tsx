@@ -120,12 +120,15 @@ const StakingContent: FunctionComponent = () => {
       farmId,
       publicKey!
     );
-    setClaimableCoins(
-      computeClaimableCoins(
-        farmer.account,
-        getEarningsPerDay(farmer.account, null)
-      )
-    );
+
+    if (farmer !== null) {
+      setClaimableCoins(
+          computeClaimableCoins(
+              farmer.account,
+              getEarningsPerDay(farmer.account, null)
+          )
+      );
+    }
   };
 
   const handleStakeNFT = async (
@@ -216,6 +219,7 @@ const StakingContent: FunctionComponent = () => {
             title={"Unstaked"}
             NFTs={availableNFTs.filter((x) => !x.isStaked)}
             callback={handleStakeNFT}
+            claimableCoins={0}
             isStaking={false}
             getStakingInfo={getStakingInfos}
           />
@@ -224,6 +228,11 @@ const StakingContent: FunctionComponent = () => {
             loading={loadingNft}
             title={"Staked"}
             NFTs={availableNFTs.filter((x) => x.isStaked)}
+            claimableCoins={claimableCoins / (
+                (availableNFTs.filter(x => x.isStaked).length === 0)
+                    ? 1
+                    : availableNFTs.filter(x => x.isStaked).length)
+            }
             callback={handleUnstakeNFT}
             isStaking={true}
             getStakingInfo={getStakingInfos}
