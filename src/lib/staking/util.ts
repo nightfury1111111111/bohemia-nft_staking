@@ -104,72 +104,24 @@ export const getEarningsPerDay = (
 ): number => {
   if (farmer === null || farmer === undefined) return 0;
 
-  const t1 = farmer.rewardA.fixedRate.promisedSchedule.tier1;
-  const t2 = farmer.rewardA.fixedRate.promisedSchedule.tier2;
-  const t3 = farmer.rewardA.fixedRate.promisedSchedule.tier3;
-
   let rarity = 1;
   if (mint !== null) {
     rarity = mint_list.find((x) => x.mint === mint.toBase58())?.reward ?? 1;
   }
 
-  const beginStakingDate = moment(
-    new Date(farmer.rewardA.fixedRate.beginStakingTs * 1000)
+  let multiplier = 86400 * ((rarity < 1) ? 1 : rarity);
+  const denominator = 1000;
+  const base_rate = (farmer.rewardA.fixedRate.promisedSchedule.baseRate.toNumber() / denominator) * multiplier;
+
+  return (
+      Math.round(base_rate / (10 ** stakingGlobals.tokenDecimals))
   );
-  const requiredDateForT1 = beginStakingDate
-    .clone()
-    .add(t1?.requiredTenure.toNumber() ?? 0, "seconds");
-  const requiredDateForT2 = beginStakingDate
-    .clone()
-    .add(t2?.requiredTenure.toNumber() ?? 0, "seconds");
-  const requiredDateForT3 = beginStakingDate
-    .clone()
-    .add(t3?.requiredTenure.toNumber() ?? 0, "seconds");
-
-  const now = moment(Date.now());
-  let multiplier = 86400 * rarity;
-
-  if (now <= requiredDateForT1) {
-    return (
-      (farmer.rewardA.fixedRate.promisedSchedule.baseRate.toNumber() *
-        multiplier) /
-      Math.pow(10, stakingGlobals.tokenDecimals)
-    );
-  } else if (
-    t1 !== null &&
-    now > requiredDateForT1 &&
-    now <= requiredDateForT2
-  ) {
-    return (
-      (farmer.rewardA.fixedRate.promisedSchedule.tier1?.rewardRate.toNumber() *
-        multiplier) /
-      Math.pow(10, stakingGlobals.tokenDecimals)
-    );
-  } else if (
-    t2 !== null &&
-    now > requiredDateForT2 &&
-    now <= requiredDateForT3
-  ) {
-    return (
-      (farmer.rewardA.fixedRate.promisedSchedule.tier2?.rewardRate.toNumber() *
-        multiplier) /
-      Math.pow(10, stakingGlobals.tokenDecimals)
-    );
-  } else if (t3 !== null && now > requiredDateForT3) {
-    return (
-      (farmer.rewardA.fixedRate.promisedSchedule.tier3?.rewardRate.toNumber() *
-        multiplier) /
-      Math.pow(10, stakingGlobals.tokenDecimals)
-    );
-  } else return 0;
 };
 
 export const computeClaimableCoins = (farmer: any, earningsPerDay: number) => {
   if (farmer === null || farmer === undefined) return 0;
 
-  const lastUpdatedTs = moment(
-    new Date(farmer.rewardA.fixedRate.lastUpdatedTs.toNumber() * 1000)
-  );
+  const lastUpdatedTs = moment(new Date(farmer.rewardA.fixedRate.lastUpdatedTs.toNumber() * 1000));
   const now = moment();
   const diffInSec = now.diff(lastUpdatedTs, "seconds");
   const diffInCoins = diffInSec * (earningsPerDay / 86400);

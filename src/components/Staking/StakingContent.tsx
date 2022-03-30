@@ -121,12 +121,15 @@ const StakingContent: FunctionComponent = () => {
       farmId,
       publicKey!
     );
-    setClaimableCoins(
-      computeClaimableCoins(
-        farmer.account,
-        getEarningsPerDay(farmer.account, null)
-      )
-    );
+
+    if (farmer !== null) {
+      setClaimableCoins(
+          computeClaimableCoins(
+              farmer.account,
+              getEarningsPerDay(farmer.account, null)
+          )
+      );
+    }
   };
 
   const handleStakeNFT = async (
@@ -199,6 +202,7 @@ const StakingContent: FunctionComponent = () => {
   return (
     <StakingContentStyled>
       <StakingInfos
+        walletStakedNfts={availableNFTs.filter(x => x.isStaked).length}
         NftStaked={farm !== null ? farm?.gemsStaked.toNumber() : "N/A"}
         claimableCoins={claimableCoins}
         claim={async () => {
@@ -213,23 +217,30 @@ const StakingContent: FunctionComponent = () => {
       <div className="content-card">
        
       <ContentNFT
-          loading={loadingNft}
-          title={"Staked"}
-          NFTs={availableNFTs.filter((x) => x.isStaked)}
-          callback={handleUnstakeNFT}
-          isStaking={true}
-          getStakingInfo={getStakingInfos}
+        loading={loadingNft}
+        title={"Unstaked"}
+        NFTs={availableNFTs.filter((x) => !x.isStaked)}
+        callback={handleStakeNFT}
+        claimableCoins={0}
+        isStaking={false}
+        getStakingInfo={getStakingInfos}
         />
       <UnstakedNFT
-          loading={loadingNft}
-          title={"Unstaked"}
-          NFTs={availableNFTs.filter((x) => !x.isStaked)}
-          callback={handleStakeNFT}
-          isStaking={false}
-          getStakingInfo={getStakingInfos}
+        loading={loadingNft}
+        title={"Staked"}
+        NFTs={availableNFTs.filter((x) => x.isStaked)}
+        claimableCoins={claimableCoins / (
+            (availableNFTs.filter(x => x.isStaked).length === 0)
+                ? 1
+                : availableNFTs.filter(x => x.isStaked).length)
+        }
+        callback={handleUnstakeNFT}
+        isStaking={true}
+        getStakingInfo={getStakingInfos}
         />         
          
         
+
       </div>
     </StakingContentStyled>
   );

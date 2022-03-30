@@ -9,6 +9,7 @@ const UnstakedNFT = ({
   isStaking,
   loading,
   getStakingInfo,
+  claimableCoins,
 }: {
   title: string;
   NFTs: any[];
@@ -16,6 +17,7 @@ const UnstakedNFT = ({
   getStakingInfo: any;
   isStaking: boolean;
   loading: boolean;
+  claimableCoins: number;
 }) => {
   return (
    
@@ -41,6 +43,7 @@ const UnstakedNFT = ({
                   loading={loading}
                   getStakingInfo={getStakingInfo}
                   farmer={e.farmer}
+                  claimableCoins={claimableCoins}
                 />
             </div>
           );
