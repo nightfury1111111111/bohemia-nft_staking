@@ -110,9 +110,11 @@ export const getEarningsPerDay = (
   }
 
   let multiplier = 86400 * ((rarity < 1) ? 1 : rarity);
+  const denominator = 1000;
+  const base_rate = (farmer.rewardA.fixedRate.promisedSchedule.baseRate.toNumber() / denominator) * multiplier;
 
   return (
-      (farmer.rewardA.fixedRate.promisedSchedule.baseRate.toNumber() * multiplier)/ (10 ** stakingGlobals.tokenDecimals)
+      Math.round(base_rate / (10 ** stakingGlobals.tokenDecimals))
   );
 };
 

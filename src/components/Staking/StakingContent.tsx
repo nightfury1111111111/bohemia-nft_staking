@@ -201,6 +201,7 @@ const StakingContent: FunctionComponent = () => {
   return (
     <StakingContentStyled>
       <StakingInfos
+        walletStakedNfts={availableNFTs.filter(x => x.isStaked).length}
         NftStaked={farm !== null ? farm?.gemsStaked.toNumber() : "N/A"}
         claimableCoins={claimableCoins}
         claim={async () => {
