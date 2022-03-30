@@ -21,7 +21,7 @@ const UnstakedNFT = ({
 }) => {
   return (
    
-    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden">
+    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden scrollbar-hide">
       {NFTs.map(
         (e: {
           name: string;
