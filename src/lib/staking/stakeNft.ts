@@ -56,24 +56,31 @@ export const stakeNft = async (
   const [creatorProof] = await findWhitelistProofPDA(farm.bank, creator);
   const metadata = await programs.metadata.Metadata.getPDA(mint);
 
-  console.log(mintProof);
-  console.log(creatorProof);
-  console.log(metadata);
-
   if (identity) {
     if (farmer !== null && farmer.state === "staked") {
-      const { tx: txDepositAndStake } = await gf!.flashDeposit(
-        farmId,
-        identity,
-        new BN(1),
-        mint,
-        source,
-        mintProof,
-        metadata,
-        creatorProof
+      // There's two calls to unstake, the first "unstakes" it
+      const { ix: ixUnstake } = await gf!.unstake(farmId, identity);
+      // Then, the second ends the cooldown period
+      const { ix: ixCooldown } = await gf!.unstake(farmId, identity);
+      txs.add(ixUnstake);
+      txs.add(ixCooldown);
+
+      const { ix: ixDeposit } = await gb.depositGem(
+          farm.bank,
+          farmerVault,
+          identity,
+          new BN(1),
+          mint,
+          source,
+          mintProof,
+          metadata,
+          creatorProof
       );
 
-      txs.add(txDepositAndStake);
+      txs.add(ixDeposit);
+
+      const { ix: ixStake } = await gf!.stake(farmId, identity);
+      txs.add(ixStake);
     } else {
       const { ix: ixDeposit } = await gb.depositGem(
         farm.bank,
