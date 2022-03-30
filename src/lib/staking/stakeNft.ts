@@ -61,7 +61,7 @@ export const stakeNft = async (
   console.log(metadata);
 
   if (identity) {
-    if (farmer !== null && farmer.farmerState === "staked") {
+    if (farmer !== null && farmer.state === "staked") {
       const { tx: txDepositAndStake } = await gf!.flashDeposit(
         farmId,
         identity,
