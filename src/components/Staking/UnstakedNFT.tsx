@@ -21,7 +21,7 @@ const UnstakedNFT = ({
 }) => {
   return (
    
-    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden mt-10">
+    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden">
       {NFTs.map(
         (e: {
           name: string;
@@ -34,7 +34,7 @@ const UnstakedNFT = ({
           const earningsPerDay = getEarningsPerDay(e.farmer, e.mint);
 
           return (
-            <div className="w-1/3">
+            <div className="w-1/3">           
               <NFT
                   nft={e}
                   callback={callback}

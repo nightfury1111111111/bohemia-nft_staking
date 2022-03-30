@@ -214,17 +214,6 @@ const StakingContent: FunctionComponent = () => {
         <div className="loading"></div>
       )}
 
-      <div className="content-card">
-       
-      <ContentNFT
-        loading={loadingNft}
-        title={"Unstaked"}
-        NFTs={availableNFTs.filter((x) => !x.isStaked)}
-        callback={handleStakeNFT}
-        claimableCoins={0}
-        isStaking={false}
-        getStakingInfo={getStakingInfos}
-        />
       <UnstakedNFT
         loading={loadingNft}
         title={"Staked"}
@@ -237,11 +226,20 @@ const StakingContent: FunctionComponent = () => {
         callback={handleUnstakeNFT}
         isStaking={true}
         getStakingInfo={getStakingInfos}
-        />         
+      />         
          
+      <ContentNFT
+        loading={loadingNft}
+        title={"Unstaked"}
+        NFTs={availableNFTs.filter((x) => !x.isStaked)}
+        callback={handleStakeNFT}
+        claimableCoins={0}
+        isStaking={false}
+        getStakingInfo={getStakingInfos}
+        />
+      
         
 
-      </div>
     </StakingContentStyled>
   );
 };
