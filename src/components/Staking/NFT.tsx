@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import styled from "styled-components";
-import { medias } from "../../constants/theme";
-import Button from "../_main/Button";
 import { stakingGlobals } from "../../constants/staking";
 
 const NFT = ({
@@ -48,40 +45,32 @@ const NFT = ({
   });
 
   return (
-    <div className="w-1/3"> 
+    <div> 
       {isStaking ? (
-        <div className="display-button">
-          <img className="pict" src={nft.image} alt="" />
-          <span>{nft.name}</span>
-          <span>Est. claimable coins: {claimableCoins.toFixed(4)}</span>
-          <span>Reward rate: {earningsPerDay}</span>
-          <Button
-            disabled={loading}
-            onClick={() => {
-              callback(stakingGlobals.farmId, nft.mint);
-            }}
-          >
-            Unstake
-          </Button>
-        </div>
+      <div className="relative inline-block w-[460px] cursor-pointer"
+      onClick={() => {
+        callback(stakingGlobals.farmId, nft.mint);
+      }}>        
+         <img src="./staked-frame.gif" alt="staked bohemian" />           
+         <img className="absolute top-[84px] left-[120px] w-[215px]" src={nft.image} alt="" />
+         <div className="absolute bottom-[38px] left-[80px] w-[220px] text-center">
+           <h2 className="text-ld mb-[-2px]">coins: {claimableCoins.toFixed(4)}</h2>
+           <h3 className="text-md">{earningsPerDay} $WOOP / DAY</h3>
+         </div>             
+       </div>    
       ) : (
-        <div className="w-full">
-           <div className="relative">    
-              <img src="./unstaked-frame.png" alt="unstaked bohemian" />           
-              <img className="absolute top-[17px] left-[88px] w-[220px]" src={nft.image} alt="" /> 
-              <h2 className="absolute text-2xl left-[145px] bottom-[150px]">{nft.name}</h2>
-              <div className="absolute bottom-[150px] right-[50px]">
-                <Button
-                  disabled={loading}
-                  onClick={() =>
-                    callback(stakingGlobals.farmId, nft.mint, nft.pubkey, nft.creator)
-                  }
-                >
-                Stake
-                </Button>  
-              </div>            
-            </div>        
-        </div>
+     
+          <div className="relative inline-block w-[460px] cursor-pointer" onClick={() =>
+            callback(stakingGlobals.farmId, nft.mint, nft.pubkey, nft.creator)
+          }>        
+            <img src="./unstaked-frame.gif" alt="unstaked bohemian" />           
+            <img className="absolute top-[25px] left-[55px] w-[240px]" src={nft.image} alt="" />
+            <div className="absolute bottom-[150px] left-[65px] w-[220px] text-center">
+              <h2 className="text-xl mb-[-2px]">{nft.name}</h2>
+              <h3 className="text-lg">15 $WOOP / DAY</h3>
+            </div>                 
+          </div>        
+       
       )}
     </div>
   );

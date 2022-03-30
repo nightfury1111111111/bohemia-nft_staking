@@ -207,29 +207,29 @@ const StakingContent: FunctionComponent = () => {
       />
 
       {(loadingInfos || loadingNft) && (
-        <div className="loading">Loading...</div>
+        <div className="loading"></div>
       )}
 
       <div className="content-card">
-        <div className="list-items">
-        <ContentNFT
-            loading={loadingNft}
-            title={"Staked"}
-            NFTs={availableNFTs.filter((x) => x.isStaked)}
-            callback={handleUnstakeNFT}
-            isStaking={true}
-            getStakingInfo={getStakingInfos}
-          />
-          <UnstakedNFT
-            loading={loadingNft}
-            title={"Unstaked"}
-            NFTs={availableNFTs.filter((x) => !x.isStaked)}
-            callback={handleStakeNFT}
-            isStaking={false}
-            getStakingInfo={getStakingInfos}
-          />         
+       
+      <ContentNFT
+          loading={loadingNft}
+          title={"Staked"}
+          NFTs={availableNFTs.filter((x) => x.isStaked)}
+          callback={handleUnstakeNFT}
+          isStaking={true}
+          getStakingInfo={getStakingInfos}
+        />
+      <UnstakedNFT
+          loading={loadingNft}
+          title={"Unstaked"}
+          NFTs={availableNFTs.filter((x) => !x.isStaked)}
+          callback={handleStakeNFT}
+          isStaking={false}
+          getStakingInfo={getStakingInfos}
+        />         
          
-        </div>
+        
       </div>
     </StakingContentStyled>
   );

@@ -12,9 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #00182c;
-  
-  height: 100vh;
+  background-color: #00182c; 
   background-image: url("https://www.bohemia.gallery/assets/images/staking-bg.png"); 
   background-position: center;
   background-repeat: no-repeat;

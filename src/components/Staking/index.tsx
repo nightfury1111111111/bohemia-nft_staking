@@ -3,13 +3,12 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 import StakingContent from "./StakingContent";
-import { medias } from "../../constants/theme";
 
 const Staking: FunctionComponent = () => {
   const { connected } = useWallet();
 
   return (
-    <div className="max-w-screen-xl mx-auto px-3 py-16">
+    <div className="max-w-screen-xl mx-auto pb-16">
       <StakingStyled>
         {connected ? (
           <StakingContent />

@@ -1,6 +1,3 @@
-import styled from "styled-components";
-import { medias } from "../../constants/theme";
-import Title, { TitleStyled } from "../_main/Title";
 import { PublicKey } from "@solana/web3.js";
 import { getEarningsPerDay } from "../../lib/staking/util";
 import NFT from "./NFT";
@@ -21,9 +18,7 @@ const ContentNFT = ({
   loading: boolean;
 }) => {
   return (
-    <div className="text-center">
-      <h2 className="text-white text-4xl">{title}</h2>
-      <div className="w-full flex">
+    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden">
         {NFTs.map(
           (e: {
             name: string;
@@ -36,6 +31,7 @@ const ContentNFT = ({
             const earningsPerDay = getEarningsPerDay(e.farmer, e.mint);
 
             return (
+            <div className="w-1/3">
               <NFT
                 nft={e}
                 callback={callback}
@@ -45,33 +41,12 @@ const ContentNFT = ({
                 getStakingInfo={getStakingInfo}
                 farmer={e.farmer}
               />
+            </div>
             );
           }
         )}
       </div>
-    </div>
   );
 };
 
 export default ContentNFT;
-
-const ContentNFTStyled = styled.div<{ isStaking: boolean }>`
-  width: 100%;
-  height: fit-content;
-  padding-bottom: 20px;
-
-  ${TitleStyled} {
-    margin: 0 auto;
-    color: white;
-  }
-  ${medias.min768} {
-    width: 47%;
-  }
-  .list {
-    width: 90%;
-    margin: 40px auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-`;
