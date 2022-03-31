@@ -16,6 +16,7 @@ body {
   background-image: url("https://www.bohemia.gallery/assets/images/staking-bg.png"); 
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 100vh;
   background-size: cover;
 }
 

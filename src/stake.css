@@ -466,10 +466,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .fixed {
   position: fixed;
 }
@@ -514,68 +510,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 65px;
 }
 
-.top-10 {
-  top: 2.5rem;
-}
-
-.left-\[100px\] {
-  left: 100px;
-}
-
-.left-\[700px\] {
-  left: 700px;
-}
-
-.left-\[400px\] {
-  left: 400px;
-}
-
-.top-\[50px\] {
-  top: 50px;
-}
-
-.top-\[150px\] {
-  top: 150px;
-}
-
-.top-\[120px\] {
-  top: 120px;
-}
-
-.left-\[420px\] {
-  left: 420px;
-}
-
-.left-\[440px\] {
-  left: 440px;
-}
-
-.left-\[200px\] {
-  left: 200px;
-}
-
-.left-\[300px\] {
-  left: 300px;
-}
-
-.left-\[340px\] {
-  left: 340px;
-}
-
-.top-\[100px\] {
-  top: 100px;
-}
-
-.left-\[410px\] {
-  left: 410px;
+.right-0 {
+  right: 0px;
 }
 
 .top-\[110px\] {
   top: 110px;
 }
 
-.right-0 {
-  right: 0px;
+.left-\[410px\] {
+  left: 410px;
 }
 
 .mx-auto {
@@ -627,12 +571,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100%;
 }
 
-.w-\[200px\] {
-  width: 200px;
-}
-
 .w-1\/2 {
   width: 50%;
+}
+
+.w-\[200px\] {
+  width: 200px;
 }
 
 .max-w-screen-xl {
@@ -653,11 +597,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .overflow-y-hidden {
   overflow-y: hidden;
-}
-
-.bg-blue-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 24 44 / var(--tw-bg-opacity));
 }
 
 .py-10 {
@@ -721,6 +660,7 @@ body {
   background-image: url("https://www.bohemia.gallery/assets/images/staking-bg.png");
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 100vh;
   background-size: cover;
 }
 
