@@ -34,7 +34,7 @@ export const StakingInfos = ({
       <img className="inline-block" src="./claimer.png" alt="claim and info box" />
       <div className="absolute w-[200px] top-[110px] left-[410px] text-center">
         <h4 className="text-xl">
-              {((NftStaked as number) / totalSupply) * 100}% Staked ({NftStaked}/{totalSupply})
+              {(((NftStaked as number) / totalSupply) * 100).toFixed(2)}% Staked ({NftStaked}/{totalSupply})
         </h4>
         <h4>
             {nftClaimableCoins.toFixed(4)} {stakingGlobals.tokenName} earned
