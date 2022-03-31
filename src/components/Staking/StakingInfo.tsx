@@ -1,8 +1,6 @@
-import Button from "../_main/Button";
 import { mint_list } from "../../configs/mint_list";
 import { stakingGlobals } from "../../constants/staking";
 import {useEffect, useState} from "react";
-import ContentNFT from "./ContentNFT";
 export const StakingInfos = ({
   NftStaked,
   claim,
@@ -27,18 +25,20 @@ export const StakingInfos = ({
   }, [claimableCoins, walletStakedNfts]);
 
   return (
-    <div className="h-[200px] w-full text-center">
-      <div className="earning">
-        <div className="earnings-title">
-          <h4>
-            {Math.round(((NftStaked as number) / totalSupply) * 100)}% Staked ({NftStaked}/{totalSupply})
-          </h4>
-
-          <h4>
+    <div className="w-full text-center py-10 relative">
+      <div className="absolute h-[196px] w-1/2 right-0 cursor-pointer" onClick={() => {
+        if (claim) {
+          claim();
+        }       
+      }}></div>
+      <img className="inline-block" src="./claimer.png" alt="claim and info box" />
+      <div className="absolute w-[200px] top-[110px] left-[410px] text-center">
+        <h4 className="text-xl">
+              {((NftStaked as number) / totalSupply) * 100}% Staked ({NftStaked}/{totalSupply})
+        </h4>
+        <h4>
             {nftClaimableCoins.toFixed(4)} {stakingGlobals.tokenName} earned
-          </h4>
-        </div>        
-        <Button onClick={claim}>Claim All</Button>
+        </h4>
       </div>
     </div>
   );

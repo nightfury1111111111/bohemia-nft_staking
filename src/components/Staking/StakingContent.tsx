@@ -200,7 +200,7 @@ const StakingContent: FunctionComponent = () => {
   };
 
   return (
-    <StakingContentStyled>
+    <div>
       <StakingInfos
         walletStakedNfts={availableNFTs.filter(x => x.isStaked).length}
         NftStaked={farm !== null ? farm?.gemsStaked.toNumber() : "N/A"}
@@ -240,18 +240,9 @@ const StakingContent: FunctionComponent = () => {
       
         
 
-    </StakingContentStyled>
+    </div>
   );
 };
 
-const StakingContentStyled = styled.div`
-  .loading {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
 
 export default StakingContent;
