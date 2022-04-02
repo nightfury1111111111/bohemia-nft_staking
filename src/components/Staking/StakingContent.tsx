@@ -97,6 +97,21 @@ const StakingContent: FunctionComponent = () => {
     });
 
     setAvailableNFTs(walletNFTs.concat(stakingNFTs));
+
+    const farmer = await fetchFarmer(
+      connection,
+      wallet!.adapter as SignerWalletAdapter,
+      farmId,
+      publicKey!
+  );
+
+  setClaimableCoins(
+      computeClaimableCoins(
+          farmer.account,
+          getEarningsPerDay(farmer.account, null),
+          currentStakingNft.length
+      )
+  );
   };
 
   /**
@@ -115,21 +130,7 @@ const StakingContent: FunctionComponent = () => {
 
     setFarm(farm);
 
-    const farmer = await fetchFarmer(
-      connection,
-      wallet!.adapter as SignerWalletAdapter,
-      farmId,
-      publicKey!
-    );
-
-    if (farmer !== null) {
-      setClaimableCoins(
-          computeClaimableCoins(
-              farmer.account,
-              getEarningsPerDay(farmer.account, null)
-          )
-      );
-    }
+  
   };
 
   const handleStakeNFT = async (

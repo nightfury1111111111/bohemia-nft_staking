@@ -118,13 +118,13 @@ export const getEarningsPerDay = (
   );
 };
 
-export const computeClaimableCoins = (farmer: any, earningsPerDay: number) => {
+export const computeClaimableCoins = (farmer: any, earningsPerDay: number, num_staked: number) => {
   if (farmer === null || farmer === undefined) return 0;
 
   const lastUpdatedTs = moment(new Date(farmer.rewardA.fixedRate.lastUpdatedTs.toNumber() * 1000));
   const now = moment();
   const diffInSec = now.diff(lastUpdatedTs, "seconds");
-  const diffInCoins = diffInSec * (earningsPerDay / 86400);
+  const diffInCoins = diffInSec * (earningsPerDay / 86400) * num_staked;
 
   return (
     (farmer.rewardA.accruedReward.toNumber() -

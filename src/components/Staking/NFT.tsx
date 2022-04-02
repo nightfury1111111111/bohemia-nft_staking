@@ -21,9 +21,10 @@ const NFT = ({
   farmer: any;
   claimableCoins: number;
 }) => {
-  const [nftClaimableCoins, setNftClaimableCoins] = useState(claimableCoins);
+  const [nftClaimableCoins, setNftClaimableCoins] = useState(0);
 
   useEffect(() => {
+    setNftClaimableCoins(claimableCoins);
     const interval = setInterval(() => {
       setNftClaimableCoins((prev) => prev + earningsPerDay / 86400);
     }, 1000);
