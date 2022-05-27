@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { getEarningsPerDay } from "../../lib/staking/util";
+import { getEarningsPerDay, getEarningsPerDayUnstaked } from "../../lib/staking/util";
 import NFT from "./NFT";
 
 const ContentNFT = ({
@@ -30,8 +30,8 @@ const ContentNFT = ({
             farmId: PublicKey;
             farmer: any;
           }) => {
-            const earningsPerDay = getEarningsPerDay(e.farmer, e.mint);
-
+          
+            const earningsPerDay = getEarningsPerDayUnstaked(e.mint);
             return (
             <div className="w-1/3">
               <NFT

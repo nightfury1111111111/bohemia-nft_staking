@@ -118,6 +118,18 @@ export const getEarningsPerDay = (
   );
 };
 
+export const getEarningsPerDayUnstaked = (
+  mint: PublicKey | null
+): number => {
+
+  let rarity = 1;
+  if (mint !== null) {
+    rarity = mint_list.find((x) => x.mint === mint.toBase58())?.reward ?? 1;
+  }
+
+  return rarity * 15;
+};
+
 export const computeClaimableCoins = (farmer: any, earningsPerDay: number, num_staked: number) => {
   if (farmer === null || farmer === undefined) return 0;
 
